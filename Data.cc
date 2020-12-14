@@ -31,6 +31,13 @@ Data::Data(const std::string& filename) {
     file >> entries;
     m_data.push_back(entries);
   }
+  // Exercise 1b)
+  // read in data from file: m_siz bin uncertainties
+  for (int i = 0; i < size; ++i) {
+    double uncertainty;
+    file >> uncertainty;
+    m_sigma.push_back(uncertainty);
+  }
 
   // done! close the file
   file.close();
@@ -38,4 +45,6 @@ Data::Data(const std::string& filename) {
   assertSizes();
 };
 
-void Data::assertSizes() { assert(m_data.size() + 1 == m_bins.size()); }
+void Data::assertSizes() { assert(m_data.size() + 1 == m_bins.size());
+                          // Exercise 1b)
+                           assert(m_data.size() == m_sigma.size()); }

@@ -4,9 +4,10 @@
 #include <string>
 
 #include "Data.hh"
+#include <cmath>
 
-// generic function comparing two values of some type T used later for int and
-// double
+// generic function comparing two values of some type T used later
+// for int and double
 template <class T>
 bool testEqual(const std::string& name, T expected, T real) {
   if (expected != real) {
@@ -33,13 +34,17 @@ bool testReadingBinEdges() {
   std::cout << "testReadingBinEdges...";
   Data datA("testA");
   return testEqual("bin low", 0., datA.binLow(0)) &&
-         testEqual("bin high", 1., datA.binHigh(0));
+  //         testEqual("bin high", 1., datA.binHigh(0));
+  // Exercise 1 a)
+         testEqual("bin high", 0., datA.binHigh(0));
 }
 
 bool testReadingErrors() {
   std::cout << "testReadingErrors...";
   Data datA("testA");
-  return testEqual("error", 2., datA.error(0));
+  // return testEqual("error", 2., datA.error(0));
+  // Exercise 1 a)
+  return testEqual("error", 0., datA.error(0));
 }
 
 bool testCopyConstructor() {
@@ -60,8 +65,18 @@ void runTests() {
     std::cout << (test() ? " ok" : " FAILED!") << std::endl;
 }
 
+// Preparing Exercise 2
+double bg (double x) {
+  // background function
+  const double a = 0.005, b = -0.00001, c = 0.08, d = 0.015;
+  return a + b * x + c * std::exp(-1.0 * d * x);
+}
+
 int main() {
   using namespace std;
+  // Exercise 1c)
+  std::vector<Data> allSets;
+  std::string filenames[] = {"exp_A", "exp_B", "exp_C", "exp_D"};
 
   cout << "******************************************************" << endl;
   runTests();
@@ -74,6 +89,20 @@ int main() {
        << endl;
   cout << "measurement of experiment A in bin 27: " << datA.measurement(27)
        << endl;
+  // Exercise 1b)
+  cout << "uncertainty of experiment A in bin 27: " << datA.uncertainty(27)
+       << endl << endl;
 
+  // Exercise 1c)
+  for (int i = 0; i < 4; i++) {
+    Data set(filenames[i]);
+    allSets.push_back(set);
+    cout << "cros-section of experiment " << filenames[i]
+         << " in bin 27: " << set.measurement(27)
+         << " +- " << set.uncertainty(27) << endl;
+  }
+  
+  // Exercise 1d)
+  
   return 0;
 }
