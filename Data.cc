@@ -48,3 +48,15 @@ Data::Data(const std::string& filename) {
 void Data::assertSizes() { assert(m_data.size() + 1 == m_bins.size());
                           // Exercise 1b)
                            assert(m_data.size() == m_sigma.size()); }
+
+// Preparing Exercise 1d)
+int Data::checkCompatibility(const Data& in, int n) {
+  // TODO
+};
+
+// Preparing Exercise 1e)
+// merges a new Data object to an exiting one:
+// sum12 = data1.average(data2);
+Data Data::average(Data in) {
+  // TODO
+};

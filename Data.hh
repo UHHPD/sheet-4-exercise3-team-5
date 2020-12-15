@@ -17,6 +17,12 @@ class Data {
     double binHigh(int i) const { return m_bins[i + 1]; }
     // Exercise 1b)
     double error(int i) const { return m_sigma[i];; }
+    // Exercise 1d)
+    int checkCompatibility(const Data&, int);
+    // Exercise 1e)
+    // merges a new Data object to an exiting one:
+    // sum12 = data1.average(data2);
+    Data average(Data);
 
   private:
     Data() {}  // disallow empty data set
