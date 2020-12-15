@@ -10,12 +10,13 @@ class Data {
 
     unsigned int size() const { return m_data.size(); }
     double measurement(int i) const { return m_data[i]; }
-    double uncertainty(int i) const { return m_sigma[i]; }
-    double binCenter(int i) const { return 0; }
-    double binLow(int i) const { return 0; }
-    double binHigh(int i) const { return 0; }
+    double binCenter(int i) const {
+      return 0.5 * (m_bins[i] + m_bins[i + 1]);
+    }
+    double binLow(int i) const { return m_bins[i]; }
+    double binHigh(int i) const { return m_bins[i + 1]; }
     // Exercise 1b)
-    double error(int i) const { return 0; }
+    double error(int i) const { return m_sigma[i];; }
 
   private:
     Data() {}  // disallow empty data set

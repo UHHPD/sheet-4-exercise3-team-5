@@ -34,17 +34,13 @@ bool testReadingBinEdges() {
   std::cout << "testReadingBinEdges...";
   Data datA("testA");
   return testEqual("bin low", 0., datA.binLow(0)) &&
-  //         testEqual("bin high", 1., datA.binHigh(0));
-  // Exercise 1 a)
-         testEqual("bin high", 0., datA.binHigh(0));
+         testEqual("bin high", 1., datA.binHigh(0));
 }
 
 bool testReadingErrors() {
   std::cout << "testReadingErrors...";
   Data datA("testA");
-  // return testEqual("error", 2., datA.error(0));
-  // Exercise 1 a)
-  return testEqual("error", 0., datA.error(0));
+  return testEqual("error", 2., datA.error(0));
 }
 
 bool testCopyConstructor() {
@@ -90,7 +86,7 @@ int main() {
   cout << "measurement of experiment A in bin 27: " << datA.measurement(27)
        << endl;
   // Exercise 1b)
-  cout << "uncertainty of experiment A in bin 27: " << datA.uncertainty(27)
+  cout << "uncertainty of experiment A in bin 27: " << datA.error(27)
        << endl << endl;
 
   // Exercise 1c)
@@ -99,7 +95,7 @@ int main() {
     allSets.push_back(set);
     cout << "cros-section of experiment " << filenames[i]
          << " in bin 27: " << set.measurement(27)
-         << " +- " << set.uncertainty(27) << endl;
+         << " +- " << set.error(27) << endl;
   }
   
   // Exercise 1d)
