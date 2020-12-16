@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <cmath>
 
 class Data {
   public:
@@ -32,5 +33,7 @@ class Data {
     std::vector<double> m_data;
     std::vector<double> m_bins;
 };
+// Preparing Exercise 2
+double bg (double);
 
 #endif

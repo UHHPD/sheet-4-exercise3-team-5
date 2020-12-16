@@ -61,12 +61,6 @@ void runTests() {
     std::cout << (test() ? " ok" : " FAILED!") << std::endl;
 }
 
-// Preparing Exercise 2
-double bg (double x) {
-  // background function
-  const double a = 0.005, b = -0.00001, c = 0.08, d = 0.015;
-  return a + b * x + c * std::exp(-1.0 * d * x);
-}
 
 int main() {
   using namespace std;
