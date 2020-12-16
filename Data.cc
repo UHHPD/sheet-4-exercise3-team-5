@@ -54,12 +54,14 @@ int Data::checkCompatibility(const Data& in, int n) {
   double relerr1, relerr2;  
   double absdiff;
   double errorsum;
+  double errorTot;
   bool errorTooLarge;
   int i = 27;
   
   absdiff = abs(this->measurement(i) - in.measurement(i));
   errorsum = absdiff + this->error(i) + in.error(i);
   errorTooLarge = absdiff > (this->error(i) + in.error(i));
+  errorTot= sqrt(this->error(i)*this->error(i) + in.error(i)*in.error(i));
   
   relerr1 = this->measurement(i) / this->error(i);
   relerr2 = in.measurement(i) / in.error(i);
