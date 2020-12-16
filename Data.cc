@@ -51,12 +51,29 @@ void Data::assertSizes() { assert(m_data.size() + 1 == m_bins.size());
 
 // Preparing Exercise 1d)
 int Data::checkCompatibility(const Data& in, int n) {
-  // TODO
+  double relerr1, relerr2;  
+  double absdiff;
+  double errorsum;
+  bool errorTooLarge;
+  int i = 27;
+  
+  absdiff = abs(this->measurement(i) - in.measurement(i));
+  errorsum = absdiff + this->error(i) + in.error(i);
+  errorTooLarge = absdiff > (this->error(i) + in.error(i));
+  
+  relerr1 = this->measurement(i) / this->error(i);
+  relerr2 = in.measurement(i) / in.error(i);
+  return i;
 };
 
 // Preparing Exercise 1e)
 // merges a new Data object to an exiting one:
 // sum12 = data1.average(data2);
-Data Data::average(Data in) {
-  // TODO
-};
+
+// Preparing Exercise 2
+double bg (double x) {
+  // background function
+  const double a = 0.005, b = -0.00001, c = 0.08, d = 0.015;
+  return a + b * x + c * std::exp(-1.0 * d * x);
+}
+
