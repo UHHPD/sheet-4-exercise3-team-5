@@ -24,6 +24,8 @@ class Data {
     // merges a new Data object to an exiting one:
     // sum12 = data1.average(data2);
     Data average(Data);
+    // Exercise 2
+    double chi2();
 
   private:
     Data() {}  // disallow empty data set
@@ -33,7 +35,8 @@ class Data {
     std::vector<double> m_data;
     std::vector<double> m_bins;
 };
-// Preparing Exercise 2
-double bg (double);
+// Exercise 2
+double bg(double);
+// background function
 
 #endif

@@ -95,9 +95,9 @@ int main() {
          << " +- " << set.error(27) << endl;
   }
   
-  // Exercise 1d)
+  // Exercise 1d), 2a)
   cout << "******************************************************" << endl;
-  cout << endl << "Exercise 1d)" << endl;
+  cout << endl << "Exercise 1d), 2a)" << endl;
   int d;
   for (int i = 0; i <=2; i++) {
     for (int j = i + 1; j <= 3; j++) {
@@ -117,7 +117,25 @@ int main() {
   cout << endl << "Exercise 1e)" << endl;
   Data sum12 = allSets[0].average(allSets[1]);
   cout << "cros-section of experiment A & B"
-         << " in bin 27: " << sum12.measurement(27)
-         << " +- " << sum12.error(27) << endl;
+       << " in bin 27: " << sum12.measurement(27)
+       << " +- " << sum12.error(27) << endl;
+
+  // Exercise 2b)
+  cout << "******************************************************" << endl;
+  cout << endl << "Exercise 2b)" << endl;
+  int ndf = 52;
+  for (int i = 0; i < 4; i++) {
+    cout << "X^2 / ndf for experiment " << filenames[i]
+         << " = " << allSets[i].chi2() / ndf  << endl;
+ }
+
+  // Exercise 2c)
+  cout << "******************************************************" << endl;
+  cout << endl << "Exercise 2c)" << endl;
+  Data sum1234 = allSets[0].average(allSets[1]).
+                  average(allSets[2]).average(allSets[3]);
+  cout << "X^2 / ndf for combined experiments A & B & C & D = "
+       << sum1234.chi2() / ndf  << endl;
+
   return 0;
 }

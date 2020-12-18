@@ -55,7 +55,7 @@ int Data::checkCompatibility(const Data& in, int n) {
   int count = 0;
   for (unsigned int i = 0; i < this->size(); i++) {
     absdiff = abs(this->measurement(i) - in.measurement(i));
-    sigma = sqrt(pow(this->error(i), 2) + pow(in.error(i),2 )); // Correct?
+    sigma = sqrt(pow(this->error(i), 2) + pow(in.error(i), 2)); // Correct?
     if (absdiff > n * sigma) {
       count += 1;
     }
@@ -64,23 +64,32 @@ int Data::checkCompatibility(const Data& in, int n) {
 };
 
 // Exercise 1e)
-// merges a new Data object to an exiting one:
+// merges a new Data object to a new one:
 // sum12 = data1.average(data2);
 Data Data::average(Data data2) {
+  double w1, w2;
   Data sum = *this;  // make a copy to ensure identical size & bins
-  // TODO: calculate m_data and m_sigma
+  for (unsigned int i = 0; i < this->size(); ++i) {
+    w1 = pow(m_sigma[i], -2);
+    w2 = pow( data2.m_sigma[i], -2);
+    sum.m_data[i] = (w1 * m_data[i] + w2 * data2.m_data[i]) / (w1 + w2);
+    sum.m_sigma[i] = sqrt(1.0 / (w1 + w2));
+  }
   return sum;
 }
 
 // Exercise 2
-double bg (double x) {
+double bg(double x) {
   // background function
   const double a = 0.005, b = -0.00001, c = 0.08, d = 0.015;
   return a + b * x + c * std::exp(-1.0 * d * x);
 }
 
-// Preparing Exercise 2
-double chi2() {
-  // TODO
-  return 1.0;
+// Exercise 2
+double Data::chi2() {
+  double c2 = 0.0;          // = chi-square
+  for (unsigned int i = 0; i < this->size(); ++i) {
+    c2 += pow((m_data[i]- bg(binCenter(i))), 2) / pow(m_sigma[i], 2);
+  }
+  return c2;
 }
