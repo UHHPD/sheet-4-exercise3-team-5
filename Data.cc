@@ -49,33 +49,38 @@ void Data::assertSizes() { assert(m_data.size() + 1 == m_bins.size());
                           // Exercise 1b)
                            assert(m_data.size() == m_sigma.size()); }
 
-// Preparing Exercise 1d)
+// Exercise 1d)
 int Data::checkCompatibility(const Data& in, int n) {
-  double relerr1, relerr2;  
-  double absdiff;
-  double errorsum;
-  double errorTot;
-  bool errorTooLarge;
-  int i = 27;
-  
-  absdiff = abs(this->measurement(i) - in.measurement(i));
-  errorsum = absdiff + this->error(i) + in.error(i);
-  errorTooLarge = absdiff > (this->error(i) + in.error(i));
-  errorTot= sqrt(this->error(i)*this->error(i) + in.error(i)*in.error(i));
-  
-  relerr1 = this->measurement(i) / this->error(i);
-  relerr2 = in.measurement(i) / in.error(i);
-  return i;
+  double absdiff, sigma;
+  int count = 0;
+  for (unsigned int i = 0; i < this->size(); i++) {
+    absdiff = abs(this->measurement(i) - in.measurement(i));
+    sigma = sqrt(pow(this->error(i), 2) + pow(in.error(i),2 )); // Correct?
+    if (absdiff > n * sigma) {
+      count += 1;
+    }
+  }
+  return count;
 };
 
-// Preparing Exercise 1e)
+// Exercise 1e)
 // merges a new Data object to an exiting one:
 // sum12 = data1.average(data2);
+Data Data::average(Data data2) {
+  Data sum = *this;  // make a copy to ensure identical size & bins
+  // TODO: calculate m_data and m_sigma
+  return sum;
+}
 
-// Preparing Exercise 2
+// Exercise 2
 double bg (double x) {
   // background function
   const double a = 0.005, b = -0.00001, c = 0.08, d = 0.015;
   return a + b * x + c * std::exp(-1.0 * d * x);
 }
 
+// Preparing Exercise 2
+double chi2() {
+  // TODO
+  return 1.0;
+}
