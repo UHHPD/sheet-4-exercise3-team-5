@@ -68,7 +68,7 @@ int Data::checkCompatibility(const Data& in, int n) {
 // sum12 = data1.average(data2);
 Data Data::average(Data data2) {
   double w1, w2;
-  Data sum = *this;  // make a copy to ensure identical size & bins
+  Data sum = *this;  // make a copy to ensure identical size of data & bins
   for (unsigned int i = 0; i < this->size(); ++i) {
     w1 = pow(m_sigma[i], -2);
     w2 = pow( data2.m_sigma[i], -2);
@@ -93,3 +93,16 @@ double Data::chi2() {
   }
   return c2;
 }
+
+Data Data::operator+(Data& data2) {
+  double w1, w2;
+  Data sum = *this;  // make a copy to ensure identical size of data & bins
+  for (unsigned int i = 0; i < this->size(); ++i) {
+    w1 = pow(m_sigma[i], -2);
+    w2 = pow( data2.m_sigma[i], -2);
+    sum.m_data[i] = (w1 * m_data[i] + w2 * data2.m_data[i]) / (w1 + w2);
+    sum.m_sigma[i] = sqrt(1.0 / (w1 + w2));
+  }
+  return sum;
+}
+

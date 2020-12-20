@@ -134,8 +134,11 @@ int main() {
   cout << endl << "Exercise 2c)" << endl;
   Data sum1234 = allSets[0].average(allSets[1]).
                   average(allSets[2]).average(allSets[3]);
+  Data sum1234plus = allSets[0] + allSets[1] + allSets[2] + allSets[3];
   cout << "X^2 / ndf for combined experiments A & B & C & D = "
        << sum1234.chi2() / ndf  << endl;
+  cout << "X^2 / ndf for combined experiments A + B + C + D = "
+       << sum1234plus.chi2() / ndf  << endl;
 
   return 0;
 }

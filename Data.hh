@@ -26,6 +26,8 @@ class Data {
     Data average(Data);
     // Exercise 2
     double chi2();
+    // Alternative solution: Overloading operator "+"
+    Data operator+(Data&);
 
   private:
     Data() {}  // disallow empty data set
